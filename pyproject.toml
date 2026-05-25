@@ -1,0 +1,15 @@
+[project]
+name = "domain-grant-efficiency"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "rich>=15.0.0",
+    "typer>=0.25.1",
+]
+
+[project.scripts]
+mytool = "domain_grant_efficiency.main:app"
+
+
