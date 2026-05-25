@@ -1,13 +1,7 @@
-
-
-
-#ooh splash screen?
-#do the typewriter effect
-#print("Welcome to domain effeciency counter: Calculate how many $10 domain grants you should buy for maximum (efficient) money use.")
-#cost_first_year = input("Enter how much it will cost in total for the first year, including all taxes & fees, like the ICANN registration fee:")
-#make sure valid input
+#refactor and make code better?
 # if cost first year and recurring are both higher than that of spaceship, recocmend spaceship to them or porkbun or someone cheap
 # guide to domain buying for bang for buck or cheapest?
+#actually add style to console.print
 import math
 
 
