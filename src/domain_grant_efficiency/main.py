@@ -2,7 +2,7 @@ from rich.console import Console
 from rich.table import Table
 from InquirerPy import inquirer
 
-from domain_grant_efficiency.ui import show_splash, show_welcome, loading_dots, typewriter
+from domain_grant_efficiency.ui import show_splash, show_welcome, loading_dots, typewriter, horizontal_bar_chart
 from domain_grant_efficiency.calculator import nearest_ten_round_up, nearest_ten, find_deviation
 
 
@@ -80,7 +80,7 @@ def get_essential_info():
     
     return [cost_first_year, num_first_year, cost_recurring_year, num_recurring_year]
 
-def calculate_optimizations_no_flexibility():
+def calculate_optimizations_no_flexibility(total_cost):
     loading_dots("Maximizing efficiency and optimizing")
     no_spend_money_required = nearest_ten_round_up(total_cost)
     console.print(f"If you don't want to spend any of your own money, you'll need ${no_spend_money_required / 10} $10 grants or ${no_spend_money_required} dollars")
@@ -93,6 +93,17 @@ def calculate_optimizations_no_flexibility():
         console.print(f"You would end up spending ${deviation} of your own money.")
     else:
         console.print("You would end up with the perfect amount to pay for your domains.")
+
+def calculate_optimizations_flexible(cost_first_year, num_first_year, cost_recurring_year, num_recurring_year):
+    optimizations_flexible = {}
+    recurring_total_cost = cost_recurring_year * num_recurring_year
+    for i in range(-5, 6):
+        first_year_total_cost = cost_first_year * (num_first_year + i)
+        total_cost = recurring_total_cost + first_year_total_cost
+        optimizations_flexible[f"${num_first_year} domains"] = total_cost
+    return optimizations_flexible 
+
+    #right now it assumes you can only change the num_first_year, but maybe you didn/'t want to renew a domain and now you will
 
 def main():
     show_splash()
@@ -124,9 +135,10 @@ def main():
         calculate_optimizations_no_flexibility()
     else:
         console.print(f"Assuming you will have exactly ${num_first_year} first-year domains and exactly ${num_recurring_year} domains:")
-        calculate_optimizations_no_flexibility()
+        calculate_optimizations_no_flexibility(total_cost)
         console.print("To see how you can optimize:")
-
+        data = calculate_optimizations_flexible(cost_first_year, num_first_year, cost_recurring_year, num_recurring_year)
+        horizontal_bar_chart(data, 30)
 
 
     

@@ -4,9 +4,10 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.align import Align
 
+from domain_grant_efficiency.main import calculate_optimizations_flexible
+
 console = Console()
 
-# Disclaimer: Splash screen is 100% AI, there's no way I could have done that myself
 SPLASH = r"""
 ██████╗   ██████╗  ███╗   ███╗  █████╗  ██╗ ███╗   ██╗
 ██╔══██╗ ██╔═══██╗ ████╗ ████║ ██╔══██╗ ██║ ████╗  ██║
@@ -62,3 +63,14 @@ def show_welcome():
     time.sleep(1)
     console.print("[dim italic]Enter the following values to begin your calculations[/dim italic]")
     time.sleep(0.5)
+
+def horizontal_bar_chart(data, width, label_width):
+    optimizations_flexible = calculate_optimizations_flexible()
+    max_value = max(data.values())
+
+    for key, value in data.items():
+        percent_of_max = value / max_value
+        bar_length = round(percent_of_max * width)
+        bar = "█" * bar_length
+        
+    
